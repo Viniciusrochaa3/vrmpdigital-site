@@ -868,7 +868,7 @@ window.addEventListener('DOMContentLoaded', () => {
   /* ---------- Pixel: clique em qualquer botão de WhatsApp = evento Contact ---------- */
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href*="wa.me"]');
-    if (a && typeof fbq === 'function') fbq('track', 'Contact');
+    if (a && typeof fbq === 'function') fbq('track', 'Lead');
   });
 
   /* ---------- Botão flutuante ---------- */
