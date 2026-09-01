@@ -481,6 +481,42 @@ footer nav{display:flex;gap:22px;flex-wrap:wrap}
 footer a{text-decoration:none}
 footer a:hover{color:var(--mint)}
 
+/* ================= MODAL DO WHATSAPP (Lead só no botão final) ================= */
+.wa-modal{
+  position:fixed;inset:0;z-index:90;display:none;
+  align-items:center;justify-content:center;padding:20px;
+  background:rgba(1,18,15,.7);backdrop-filter:blur(8px);
+}
+.wa-modal.open{display:flex}
+.wa-card{
+  position:relative;width:min(460px,100%);
+  background:linear-gradient(180deg,var(--kelp),var(--kelp-2));
+  border:1px solid rgba(43,228,160,.3);border-radius:24px;
+  padding:32px 28px;text-align:center;
+  box-shadow:0 40px 100px rgba(0,0,0,.55),0 0 60px rgba(43,228,160,.1);
+  animation:wa-pop .35s cubic-bezier(.2,.9,.3,1.2);
+}
+@keyframes wa-pop{from{transform:scale(.9) translateY(20px);opacity:0}}
+.wa-close{
+  position:absolute;top:12px;right:16px;background:none;border:none;cursor:pointer;
+  color:var(--mist);font-size:28px;line-height:1;font-family:var(--sans);
+}
+.wa-card h3{font-family:var(--disp);font-weight:600;font-size:23px;letter-spacing:-.02em;margin-bottom:6px}
+.wa-card p{color:var(--mist);font-size:14px;margin-bottom:20px}
+.wa-chips{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:24px}
+.wa-chips button{
+  font-family:var(--sans);font-size:13.5px;font-weight:500;cursor:pointer;
+  color:var(--mist);background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.16);border-radius:99px;padding:9px 16px;
+  transition:all .2s;
+}
+.wa-chips button:hover{border-color:var(--mint);color:var(--white)}
+.wa-chips button.on{
+  background:linear-gradient(120deg,var(--teal),var(--mint));color:#01302A;
+  border-color:transparent;font-weight:600;
+}
+.wa-card .gbtn{width:100%;justify-content:center}
+
 /* ================= WHATSAPP FLUTUANTE ================= */
 .wa-float{
   position:fixed;right:18px;bottom:18px;z-index:70;
@@ -850,6 +886,28 @@ footer a:hover{color:var(--mint)}
   </div>
 </footer>
 
+<!-- Modal de confirmação: o Lead só dispara aqui dentro, no botão final -->
+<div class="wa-modal" id="wa-modal" role="dialog" aria-modal="true" aria-label="Abrir conversa no WhatsApp">
+  <div class="wa-card">
+    <button class="wa-close" id="wa-close" aria-label="Fechar">×</button>
+    <h3>Qual é o seu negócio?</h3>
+    <p>Um toque e sua mensagem já vai pronta.</p>
+    <div class="wa-chips" id="wa-chips">
+      <button type="button" data-n="Clínica de estética">Estética</button>
+      <button type="button" data-n="Odontologia">Odontologia</button>
+      <button type="button" data-n="Imobiliária">Imobiliária</button>
+      <button type="button" data-n="Advocacia">Advocacia</button>
+      <button type="button" data-n="Clínica médica">Clínica médica</button>
+      <button type="button" data-n="Fisioterapia">Fisioterapia</button>
+      <button type="button" data-n="Outro">Outro</button>
+    </div>
+    <button class="gbtn" id="wa-go" type="button">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Abrir WhatsApp e enviar
+    </button>
+  </div>
+</div>
+
 <a class="wa-float" id="wa-float" href="https://wa.me/5511930437320?text=Quero%20saber%20como%20funciona%20para%20ter%20meu%20site." target="_blank" rel="noopener" aria-label="Falar no WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
@@ -865,11 +923,33 @@ window.addEventListener('DOMContentLoaded', () => {
   const desktop = matchMedia('(min-width: 960px)').matches;
   const hasGsap = typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined';
 
-  /* ---------- Pixel: clique em qualquer botão de WhatsApp = evento Contact ---------- */
+  /* ---------- WhatsApp: botões abrem o modal; o Lead só dispara no botão final ---------- */
+  const waModal = document.getElementById('wa-modal');
+  let waNicho = '';
   document.addEventListener('click', e => {
     const a = e.target.closest('a[href*="wa.me"]');
-    if (a && typeof fbq === 'function') fbq('track', 'Lead');
+    if (!a || a.closest('.wa-modal')) return;
+    e.preventDefault();
+    waModal.classList.add('open');
   });
+  document.getElementById('wa-chips').addEventListener('click', e => {
+    const b = e.target.closest('button[data-n]');
+    if (!b) return;
+    document.querySelectorAll('.wa-chips button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    waNicho = b.dataset.n;
+  });
+  document.getElementById('wa-go').addEventListener('click', () => {
+    if (typeof fbq === 'function') fbq('track', 'Lead'); // Lead = intenção confirmada
+    let msg = 'Quero saber como funciona para ter meu site.';
+    if (waNicho) msg += ' Meu negócio: ' + waNicho + '.';
+    window.open('https://wa.me/5511930437320?text=' + encodeURIComponent(msg), '_blank');
+    waModal.classList.remove('open');
+  });
+  const waCloseModal = () => waModal.classList.remove('open');
+  document.getElementById('wa-close').addEventListener('click', waCloseModal);
+  waModal.addEventListener('click', e => { if (e.target === waModal) waCloseModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') waCloseModal(); });
 
   /* ---------- Botão flutuante ---------- */
   const waFloat = document.getElementById('wa-float');
