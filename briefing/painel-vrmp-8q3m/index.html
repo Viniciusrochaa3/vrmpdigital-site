@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel de briefings · VRMP Digital</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#011512">
+<link rel="icon" href="../assets/icone.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/base.css">
+<link rel="stylesheet" href="painel.css">
+</head>
+<body>
+<div class="aura" aria-hidden="true"><i></i></div>
+
+<!-- login -->
+<div class="login" id="telaLogin" hidden>
+  <form class="login-caixa" id="formLogin" autocomplete="on">
+    <img src="../assets/icone.svg" alt="" width="56" height="56">
+    <h1>Painel de briefings</h1>
+    <p>Acesso restrito à equipe VRMP Digital.</p>
+    <label class="campo">
+      <span class="rotulo">E-mail</span>
+      <input type="email" id="email" autocomplete="username" required>
+    </label>
+    <label class="campo">
+      <span class="rotulo">Senha</span>
+      <input type="password" id="senha" autocomplete="current-password" required>
+    </label>
+    <button class="btn" type="submit" id="btnEntrar">Entrar →</button>
+    <div class="login-erro" id="erroLogin" role="alert"></div>
+  </form>
+</div>
+
+<!-- painel -->
+<div class="painel" id="telaPainel" hidden>
+  <aside class="lateral" id="lateral">
+    <div class="lateral-topo">
+      <div class="marca">
+        <img src="../assets/icone.svg" alt="" width="36" height="36">
+        <div><b>VRMP</b><span>BRIEFINGS</span></div>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="btnSair" type="button">Sair</button>
+    </div>
+    <label class="campo busca">
+      <input type="search" id="busca" placeholder="Buscar cliente…" aria-label="Buscar cliente">
+    </label>
+    <div class="lista" id="lista"></div>
+    <div class="lateral-rodape">
+      <button class="btn btn-ghost btn-sm" id="btnLink" type="button">Copiar link do formulário</button>
+    </div>
+  </aside>
+
+  <main class="detalhe" id="detalhe"></main>
+</div>
+
+<!-- visualizador de imagem -->
+<div class="visor" id="visor" hidden role="dialog" aria-modal="true" aria-label="Imagem ampliada">
+  <button class="visor-fechar" id="visorFechar" type="button" aria-label="Fechar">×</button>
+  <button class="visor-seta ant" id="visorAnt" type="button" aria-label="Anterior">‹</button>
+  <img id="visorImg" alt="">
+  <button class="visor-seta prox" id="visorProx" type="button" aria-label="Próxima">›</button>
+  <div class="visor-barra">
+    <span id="visorNome"></span>
+    <button class="btn btn-sm" id="visorBaixar" type="button">Baixar</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="../assets/config.js"></script>
+<script src="../assets/campos.js"></script>
+<script src="painel.js"></script>
+</body>
+</html>
