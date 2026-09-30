@@ -254,8 +254,23 @@
     });
   }
 
+  // números no topo: quantos clientes em cada etapa; clicar leva ao grupo na lista
+  function desenharResumo() {
+    $("resumo").replaceChildren.apply($("resumo"), GRUPOS.slice(0, 3).map(function (g) {
+      var n = briefings.filter(function (b) { return b.status === g[0]; }).length;
+      return el("button", { type: "button", class: "conta " + g[0], "aria-label": n + " " + g[1], onclick: function () {
+        fechados[g[0]] = false;
+        if (termo) { termo = ""; $("busca").value = ""; }
+        desenharLista();
+        var alvo = $("lista").querySelector('[data-grupo="' + g[0] + '"]');
+        if (alvo) $("lista").scrollTo({ top: alvo.offsetTop, behavior: "smooth" });
+      } }, [el("b", { text: String(n) }), el("span", { text: g[1] })]);
+    }));
+  }
+
   // lista compacta, uma linha por cliente, agrupada por status
   function desenharLista() {
+    desenharResumo();
     if (!briefings.length) {
       $("lista").replaceChildren(el("div", { class: "vazio", text: "Nenhum briefing recebido ainda. Envie o link do formulário para o seu cliente." }));
       return;
@@ -267,7 +282,7 @@
       var l = lista.filter(function (b) { return b.status === g[0]; });
       if (g[0] === "arquivado" && !l.length) return;
       var aberto = buscando ? l.length > 0 : !fechados[g[0]];
-      nos.push(el("button", { type: "button", class: "grupo", "aria-expanded": String(aberto), onclick: function () {
+      nos.push(el("button", { type: "button", class: "grupo", "data-grupo": g[0], "aria-expanded": String(aberto), onclick: function () {
         fechados[g[0]] = aberto; desenharLista();
       } }, [el("i", { class: "ponto " + g[0] }), g[1], el("b", { text: String(l.length) })]));
       if (!aberto) return;
