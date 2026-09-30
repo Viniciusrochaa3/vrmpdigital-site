@@ -429,9 +429,9 @@
 
     enviando = false;
     limparRascunho();
+    telaSucesso(); // usa o nome do cliente, então vem antes de zerar
     valores = {};
     arquivos = {};
-    telaSucesso();
   }
 
   async function subir(caminho, item) {

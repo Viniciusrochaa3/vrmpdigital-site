@@ -1,5 +1,5 @@
 /* ============================================================
-   Config — Supabase (mesmo projeto dos outros apps)
+   Config — Supabase (projeto AgendaBaseSuperBase; tabelas do briefing isoladas)
    URL e chave "publishable" são públicas; a segurança real vem
    das políticas RLS (ver supabase-setup.sql).
    ============================================================ */
@@ -7,8 +7,8 @@
   "use strict";
 
   var SUPA = {
-    url: "https://driwkuijchngjpspelou.supabase.co",
-    key: "sb_publishable_F0BwnfcnKP_W0smNAliWxw_CC9tL1qs",
+    url: "https://ohlqzspfrhullnjfjmqi.supabase.co",
+    key: "sb_publishable_XZw9mVzoFzMdovEE3fTBjA_fZM6PJTD",
   };
 
   global.VRMP = {
