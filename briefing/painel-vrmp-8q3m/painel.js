@@ -209,6 +209,10 @@
 
   /* ---------- briefing em texto ---------- */
   function valorTexto(v) { return Array.isArray(v) ? v.join(", ") : String(v); }
+  function respondeu(d, c) {
+    var v = d[c.id];
+    return v != null && v !== "" && !(Array.isArray(v) && !v.length);
+  }
 
   function markdown(b) {
     var d = b.dados || {};
@@ -230,6 +234,14 @@
       });
       out.push("");
     }
+    var emBranco = [];
+    ETAPAS.forEach(function (e) {
+      e.campos.forEach(function (c) {
+        if (c.tipo === "arquivos") { if (!arqs.some(function (a) { return a.campo === c.id; })) emBranco.push(c.label); }
+        else if (!c.mostrarSe && !respondeu(d, c)) emBranco.push(c.label);
+      });
+    });
+    if (emBranco.length) out.push("## O cliente não respondeu", "", emBranco.map(function (x) { return "- " + x; }).join("\n"), "");
     if (b.notas) out.push("## Notas internas", "", b.notas, "");
     return out.join("\n");
   }
@@ -373,28 +385,29 @@
     var galerias = [];
     Object.keys(CATEGORIAS).forEach(function (k) {
       var l = arqs.filter(function (a) { return a.campo === k; });
-      if (!l.length) return;
-      var grade = el("div", { class: "galeria" });
-      galerias.push({ grade: grade, arquivos: l });
+      var grade = l.length ? el("div", { class: "galeria" }) : el("p", { class: "sem-arquivo", text: "Nenhum arquivo enviado" });
+      if (l.length) galerias.push({ grade: grade, arquivos: l });
       nos.push(el("section", { class: "bloco" }, [
         el("h2", {}, [CATEGORIAS[k], el("small", { text: l.length + (l.length === 1 ? " arquivo" : " arquivos") })]),
         grade,
       ]));
     });
 
+    // todas as perguntas do formulário aparecem; as que o cliente pulou ficam marcadas
     ETAPAS.forEach(function (e) {
       var campos = e.campos.filter(function (c) {
-        var v = d[c.id];
-        return c.tipo !== "arquivos" && v != null && v !== "" && !(Array.isArray(v) && !v.length);
+        return c.tipo !== "arquivos" && (respondeu(d, c) || !c.mostrarSe);
       });
       if (!campos.length) return;
+      var feitas = campos.filter(function (c) { return respondeu(d, c); }).length;
       nos.push(el("section", { class: "bloco" }, [
-        el("h2", { text: e.titulo }),
+        el("h2", {}, [e.titulo, el("small", { text: feitas + " de " + campos.length + " respondidas" })]),
         el("dl", { style: "margin:0" }, campos.map(function (c) {
-          return el("div", { class: "dado" }, [
+          var ok = respondeu(d, c);
+          return el("div", { class: "dado" + (ok ? "" : " sem-resposta") }, [
             el("dt", { text: c.label }),
-            el("dd", {}, renderValor(c, d[c.id])),
-            el("button", { class: "copiar", type: "button", "aria-label": "Copiar " + c.label, onclick: function () { copiar(valorTexto(d[c.id])); } }, "Copiar"),
+            el("dd", {}, ok ? renderValor(c, d[c.id]) : "Não respondeu"),
+            ok ? el("button", { class: "copiar", type: "button", "aria-label": "Copiar " + c.label, onclick: function () { copiar(valorTexto(d[c.id])); } }, "Copiar") : null,
           ]);
         })),
       ]));
