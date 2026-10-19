@@ -80,6 +80,8 @@
 .dado { display: grid; grid-template-columns: 220px minmax(0, 1fr) auto; gap: 16px; align-items: start; padding: 13px 0; border-bottom: 1px solid rgba(43, 228, 160, .08); }
 .dado dt { color: var(--muted); font-size: 14px; }
 .dado dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.dado.sem-resposta dd, .sem-arquivo { color: rgba(141, 178, 168, .55); font-style: italic; font-size: 14.5px; }
+.sem-arquivo { margin: 0; }
 .dado .copiar { opacity: 0; padding: 4px 10px; border-radius: 8px; font-size: 12.5px; background: transparent; border: 1px solid var(--line); color: var(--muted); transition: all .15s; }
 .dado:hover .copiar, .dado .copiar:focus-visible { opacity: 1; }
 .dado .copiar:hover { color: var(--mint); border-color: var(--mint); }
